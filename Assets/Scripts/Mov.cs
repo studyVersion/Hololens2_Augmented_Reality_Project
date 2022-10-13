@@ -13,7 +13,7 @@ public class Mov : MonoBehaviour
     void Start()
     {
         referencia = doorPosition.position;
-       
+
     }
 
 
@@ -37,6 +37,11 @@ public class Mov : MonoBehaviour
             doorAudio.Play();
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            doorAudio.Stop();
+
+        }
+        if (doorPosition.position == targetPosition.position || doorPosition.position == referencia)
         {
             doorAudio.Stop();
         }
