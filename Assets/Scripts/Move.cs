@@ -7,17 +7,19 @@ public class Move : MonoBehaviour
     public Transform doorPosition;
     public Transform targetPosition;
     private Vector3 referencia;
-    public float speed;
+    public float speed =2.2f;
     public AudioSource doorAudio;
 
     bool opening;
-    bool moving;
+    bool closing;
+
 
     // Start is called before the first frame update
     void Start()
     {    
-         moving= false;
+
          opening= false;
+         closing = false;
          referencia = doorPosition.position;
 
     }
@@ -27,42 +29,42 @@ public class Move : MonoBehaviour
     void Update()
     {
         // Moves the object forward at two units per second.
-        if (Input.GetKey(KeyCode.LeftArrow) )
+        if (Input.GetKey(KeyCode.LeftArrow) && !closing )
         {   
-            moving = true;
             opening= true;
-            
+            doorAudio.Play();
         }
-        if (Input.GetKey(KeyCode.RightApple) ){
-            moving =true;
-            opening = false;
+
+        if (Input.GetKey(KeyCode.RightArrow) && !opening ){
+            closing =true;
+            doorAudio.Play();
         }
-    
-        if(moving && opening){
-             
-             move(doorPosition.position, targetPosition.position);   
+       
+        if(opening){      
+             move(doorPosition.position, targetPosition.position);             
                if (doorPosition.position == targetPosition.position ){
-                        moving = false;   
-               }
-             
+                        opening = false;
+               
+               }            
             
         }
       
-        if(moving && !opening){
-
+        if(closing){
+             
              move(doorPosition.position, referencia);
+             
            if(doorPosition.position == referencia){
-                 moving =false;
+                reset();
            }
             
         }
         
 
         // // el sonido sólo se activa cuando se pulsan los botones izquierdo/derecho
-        // if (movingRight)
-        // {
-        //     doorAudio.Play();
-        // }
+    //   if (moving)
+    //      {
+    //          doorAudio.Play();
+    //     }
       
         // if (!movingRight)
         // {
@@ -70,10 +72,12 @@ public class Move : MonoBehaviour
         // }
 
     }
-
+    void reset(){
+         opening= false;
+         closing = false;
+    }
     void move(Vector3 pos, Vector3 target){
         doorPosition.position = Vector3.MoveTowards(pos, target,speed * Time.deltaTime);
     }
-
-
+ 
 }
