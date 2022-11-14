@@ -7,6 +7,7 @@ public class Mov : MonoBehaviour
     public Transform doorPosition;
     public Transform targetPosition;
     private Vector3 referencia;
+    public float speed = 2.2f;
     public AudioSource doorAudio;
 
     // Start is called before the first frame update
@@ -23,11 +24,11 @@ public class Mov : MonoBehaviour
         // Moves the object forward at two units per second.
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            doorPosition.position = Vector3.MoveTowards(doorPosition.position, targetPosition.position, 2 * Time.deltaTime);
+            doorPosition.position = Vector3.MoveTowards(doorPosition.position, targetPosition.position, speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            doorPosition.position = Vector3.MoveTowards(doorPosition.position, referencia, 2 * Time.deltaTime);
+            doorPosition.position = Vector3.MoveTowards(doorPosition.position, referencia, speed* Time.deltaTime);
 
         }
 
