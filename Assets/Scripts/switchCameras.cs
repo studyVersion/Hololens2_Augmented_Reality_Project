@@ -21,17 +21,17 @@ public class switchCameras : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("q"))
         {
             CameraOne ();
         }
 
-        if (Input.GetKeyDown("2"))
+        if (Input.GetKeyDown("w"))
         {
             CameraTwo ();
         }
 
-        if (Input.GetKeyDown("3"))
+        if (Input.GetKeyDown("e"))
         {
             CameraThree ();
         }
