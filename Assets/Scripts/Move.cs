@@ -10,6 +10,15 @@ public class Move : MonoBehaviour
     public float speed =2.2f;
     public AudioSource doorAudio;
 
+    public GameObject luzInterior;
+    public GameObject luzExterior;
+    public GameObject alarma;
+
+    public ParticleSystem escape;
+
+    public ParticleSystem craftingSmoke;
+    public ParticleSystem craftingSpark;
+
     bool opening;
     bool closing;
 
@@ -21,6 +30,11 @@ public class Move : MonoBehaviour
          opening= false;
          closing = false;
          referencia = doorPosition.position;
+        
+         luzInterior.SetActive(true);
+         luzExterior.SetActive(true);
+
+         alarma.SetActive(false);
 
     }
 
@@ -41,10 +55,19 @@ public class Move : MonoBehaviour
         }
        
         if(opening){      
+
+             luzInterior.SetActive(false);
+             luzExterior.SetActive(false);
+
+             escape.Stop();
+             craftingSmoke.Stop();
+             craftingSpark.Stop();
+
              move(doorPosition.position, targetPosition.position);             
                if (doorPosition.position == targetPosition.position ){
                         opening = false;
-               
+
+
                }            
             
         }
@@ -55,6 +78,13 @@ public class Move : MonoBehaviour
              
            if(doorPosition.position == referencia){
                 reset();
+
+                luzInterior.SetActive(true);
+                luzExterior.SetActive(true);
+
+                escape.Play();
+                craftingSmoke.Play();
+                craftingSpark.Play();
            }
             
         }
