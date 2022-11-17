@@ -12,7 +12,6 @@ public class Move : MonoBehaviour
 
     public GameObject luzInterior;
     public GameObject luzExterior;
-    public GameObject alarma;
 
     public ParticleSystem escape;
 
@@ -33,8 +32,6 @@ public class Move : MonoBehaviour
         
          luzInterior.SetActive(true);
          luzExterior.SetActive(true);
-
-         alarma.SetActive(false);
 
     }
 

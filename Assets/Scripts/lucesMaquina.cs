@@ -26,15 +26,17 @@ public class lucesMaquina : MonoBehaviour
     void Update()
     {
         if (luzInterior.activeSelf) {
-           rendererInterior.material.SetColor("_Color",  luzAmarilla);
+           rendererInterior.material.EnableKeyword("_EMISSION");
+           rendererInterior.material.SetColor("_EmissionColor",  luzAmarilla * 8.0f);
         } else {
-           rendererInterior.material.SetColor("_Color",  Color.white);
+           rendererInterior.material.SetColor("_EmissionColor",  Color.black);
         }
         
         if (luzExterior.activeSelf) {
-           rendererExterior.material.SetColor("_Color",  luzRoja);
+           rendererExterior.material.EnableKeyword("_EMISSION");
+           rendererExterior.material.SetColor("_EmissionColor",  luzRoja * 3.0f);
         } else {
-           rendererExterior.material.SetColor("_Color",  Color.white);
+           rendererExterior.material.SetColor("_EmissionColor",  Color.black);
         }
     }
 }
