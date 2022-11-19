@@ -17,6 +17,7 @@ public class Move : MonoBehaviour
 
     public ParticleSystem craftingSmoke;
     public ParticleSystem craftingSpark;
+    public ParticleSystem doorDust;
 
     bool opening;
     bool closing;
@@ -82,6 +83,7 @@ public class Move : MonoBehaviour
                 escape.Play();
                 craftingSmoke.Play();
                 craftingSpark.Play();
+                doorDust.Play();
            }
             
         }
