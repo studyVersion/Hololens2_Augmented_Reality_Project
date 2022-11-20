@@ -17,7 +17,6 @@ public class Move : MonoBehaviour
 
     public ParticleSystem craftingSmoke;
     public ParticleSystem craftingSpark;
-    public ParticleSystem doorDust;
 
     bool opening;
     bool closing;
@@ -31,6 +30,7 @@ public class Move : MonoBehaviour
          closing = false;
          referencia = doorPosition.position;
         
+        
          luzInterior.SetActive(true);
          luzExterior.SetActive(true);
 
@@ -40,6 +40,7 @@ public class Move : MonoBehaviour
 
     void Update()
     {
+        
         // Moves the object forward at two units per second.
         if (Input.GetKey(KeyCode.LeftArrow) && !closing )
         {   
@@ -56,10 +57,10 @@ public class Move : MonoBehaviour
 
              luzInterior.SetActive(false);
              luzExterior.SetActive(false);
-
+             
              escape.Stop();
-             craftingSmoke.Stop();
-             craftingSpark.Stop();
+            
+            
 
              move(doorPosition.position, targetPosition.position);             
                if (doorPosition.position == targetPosition.position ){
@@ -79,11 +80,10 @@ public class Move : MonoBehaviour
 
                 luzInterior.SetActive(true);
                 luzExterior.SetActive(true);
-
+                 //LeftC.transform.Rotate(0,40,0);
                 escape.Play();
-                craftingSmoke.Play();
-                craftingSpark.Play();
-                doorDust.Play();
+              
+              
            }
             
         }
