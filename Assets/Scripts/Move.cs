@@ -13,10 +13,7 @@ public class Move : MonoBehaviour
     public GameObject luzInterior;
     public GameObject luzExterior;
 
-    public ParticleSystem escape;
-
-    public ParticleSystem craftingSmoke;
-    public ParticleSystem craftingSpark;
+    public ParticleSystem dustDoor;
 
     bool opening;
     bool closing;
@@ -33,6 +30,7 @@ public class Move : MonoBehaviour
         
          luzInterior.SetActive(true);
          luzExterior.SetActive(true);
+         dustDoor.Stop();
 
     }
 
@@ -58,7 +56,7 @@ public class Move : MonoBehaviour
              luzInterior.SetActive(false);
              luzExterior.SetActive(false);
              
-             escape.Stop();
+            
             
             
 
@@ -80,8 +78,9 @@ public class Move : MonoBehaviour
 
                 luzInterior.SetActive(true);
                 luzExterior.SetActive(true);
+                dustDoor.Play();
                  //LeftC.transform.Rotate(0,40,0);
-                escape.Play();
+          
               
               
            }

@@ -16,6 +16,7 @@ public class MoveRightC : MonoBehaviour
     public Transform RightC;
      public ParticleSystem craftingSmoke;
      public ParticleSystem craftingSpark;
+     public ParticleSystem escape;
     
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class MoveRightC : MonoBehaviour
           movingRight = false;
           OriginalPos=transform.position;
            anim=LeftC.GetComponent<Animator>();
+           escape.Stop();
            
     }
 
@@ -63,6 +65,7 @@ public class MoveRightC : MonoBehaviour
                           anim.SetBool("turn",true);
                             craftingSmoke.Play();
                               craftingSpark.Play();
+                              escape.Play();
                } 
                       }
     }
@@ -79,6 +82,7 @@ public class MoveRightC : MonoBehaviour
               anim.SetBool("turn",false);
                craftingSmoke.Stop();  
                 craftingSpark.Stop();
+                escape.Stop();
                if (transform.position == tr.position ){
                         movingRight = false;
                          movingUP = true;
