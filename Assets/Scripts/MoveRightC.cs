@@ -17,7 +17,7 @@ public class MoveRightC : MonoBehaviour
      public ParticleSystem craftingSmoke;
      public ParticleSystem craftingSpark;
      public ParticleSystem escape;
-    
+     bool call = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,13 +30,20 @@ public class MoveRightC : MonoBehaviour
            escape.Stop();
            
     }
+    
 
+    public void click(){
+         if(!call){
+            call = true;
+         }else{
+            call = false;
+         }
+    }
     // Update is called once per frame
     void Update()
-    {
-        movmment();
-        
-        back();
+    {  
+        if(call)    { movmment(); }
+        if(!call)   { back(); }
 
         if(Input.GetKeyDown(KeyCode.C)){
             RightC.Rotate(0,-45,0);
@@ -45,7 +52,7 @@ public class MoveRightC : MonoBehaviour
     }
     private void movmment(){
          // Moves the object forward at two units per second.
-        if (Input.GetKey(KeyCode.M))
+        if (call)
         {   movingDown = true;
             
         }
@@ -72,7 +79,7 @@ public class MoveRightC : MonoBehaviour
 
     private void back(){
          // Moves the object forward at two units per second.
-        if (Input.GetKey(KeyCode.B))
+        if (!call)
         {   movingRight = true;
             
         }
