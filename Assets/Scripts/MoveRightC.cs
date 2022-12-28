@@ -18,6 +18,7 @@ public class MoveRightC : MonoBehaviour
      public ParticleSystem craftingSpark;
      public ParticleSystem escape;
      bool call = false;
+     bool calltoback = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,15 +36,18 @@ public class MoveRightC : MonoBehaviour
     public void click(){
          if(!call){
             call = true;
-         }else{
-            call = false;
+         }
+    }
+    public void BackClick(){
+      if(!calltoback){
+            calltoback = true;
          }
     }
     // Update is called once per frame
     void Update()
     {  
         if(call)    { movmment(); }
-        if(!call)   { back(); }
+       if(calltoback)   { back(); }
 
         if(Input.GetKeyDown(KeyCode.C)){
             RightC.Rotate(0,-45,0);
@@ -58,7 +62,7 @@ public class MoveRightC : MonoBehaviour
         }
         if(movingDown){
              
-            transform.position = Vector3.MoveTowards(transform.position, tr.position, 3 * Time.deltaTime);   
+            transform.position = Vector3.MoveTowards(transform.position, tr.position, 0.1f * Time.deltaTime);   
                if (transform.position == tr.position ){
                         movingDown = false;
                          movingLeft = true;
@@ -66,26 +70,27 @@ public class MoveRightC : MonoBehaviour
                       }
          if(movingLeft){
              
-            transform.position = Vector3.MoveTowards(transform.position, tr2.position, 3 * Time.deltaTime);   
+            transform.position = Vector3.MoveTowards(transform.position, tr2.position, 0.2f * Time.deltaTime);   
                if (transform.position == tr2.position ){                     
                          movingLeft = false;
                           anim.SetBool("turn",true);
                             craftingSmoke.Play();
                               craftingSpark.Play();
                               escape.Play();
+                             call=false;
                } 
                       }
     }
 
     private void back(){
          // Moves the object forward at two units per second.
-        if (!call)
+        if (calltoback)
         {   movingRight = true;
             
         }
         if(movingRight){
              
-            transform.position = Vector3.MoveTowards(transform.position, tr.position, 3 * Time.deltaTime); 
+            transform.position = Vector3.MoveTowards(transform.position, tr.position, 0.2f * Time.deltaTime); 
               anim.SetBool("turn",false);
                craftingSmoke.Stop();  
                 craftingSpark.Stop();
@@ -97,9 +102,10 @@ public class MoveRightC : MonoBehaviour
                       }
          if(movingUP){
              
-            transform.position = Vector3.MoveTowards(transform.position, OriginalPos, 3 * Time.deltaTime);   
+            transform.position = Vector3.MoveTowards(transform.position, OriginalPos, 2 * Time.deltaTime);   
                if (transform.position == OriginalPos ){                     
                          movingUP = false;
+                         calltoback=false;
                } 
                       }
     }
