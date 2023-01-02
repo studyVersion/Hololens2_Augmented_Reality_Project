@@ -65,18 +65,6 @@ public class Move : MonoBehaviour
             
         }
         
-
-        // // el sonido sólo se activa cuando se pulsan los botones izquierdo/derecho
-    //   if (moving)
-    //      {
-    //          doorAudio.Play();
-    //     }
-      
-        // if (!movingRight)
-        // {
-        //     doorAudio.Stop();
-        // }
-
     }
     }
 
