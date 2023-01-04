@@ -19,6 +19,7 @@ public class MoveRightC : MonoBehaviour
     public ParticleSystem escape;
     bool call = false;
     bool callback = false;
+    public Canvas canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class MoveRightC : MonoBehaviour
         movingRight = false;
         OriginalPos = transform.position;
         anim = LeftC.GetComponent<Animator>();
+        canvas.enabled = false;
         escape.Stop();
 
     }
@@ -50,8 +52,15 @@ public class MoveRightC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (call) { movmment(); }
-        if (callback) { back(); }
+        if (call) { 
+            canvas.enabled = true;
+            movmment(); 
+            }
+
+        if (callback) { 
+           canvas.enabled = false;
+            back(); 
+            }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
