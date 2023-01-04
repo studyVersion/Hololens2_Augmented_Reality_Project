@@ -22,7 +22,7 @@ public class Move : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {    
-         referencia = doorPosition;
+         
          luzInterior.SetActive(true);
          luzExterior.SetActive(true);
       
