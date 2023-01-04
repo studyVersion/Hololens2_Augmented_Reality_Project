@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoveRightC : MonoBehaviour
 {
+    public Transform needle;
     public Transform LeftC;
     public Transform target1;
     public Transform target2;
@@ -12,7 +13,7 @@ public class MoveRightC : MonoBehaviour
     bool movingUP;
     bool movingRight;
     private Vector3 OriginalPos;
-    private Animator anim;
+    private Animator anim,needleAnim;
     public Transform RightC;
     public ParticleSystem craftingSmoke;
     public ParticleSystem craftingSpark;
@@ -23,6 +24,7 @@ public class MoveRightC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        needleAnim=needle.GetComponent<Animator>();
         movingDown = false;
         movingLeft = false;
         movingUP = false;
@@ -54,11 +56,13 @@ public class MoveRightC : MonoBehaviour
     {
         if (call) { 
             canvas.enabled = true;
+             needleAnim.SetBool("turn", true);
             movmment(); 
             }
 
         if (callback) { 
            canvas.enabled = false;
+           needleAnim.SetBool("turn", false);
             back(); 
             }
 
