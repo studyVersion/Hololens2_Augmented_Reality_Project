@@ -6,7 +6,7 @@ public class Move : MonoBehaviour
 {
     public Transform doorPosition;
     public Transform targetPosition;
-    private Vector3 referencia;
+    public Transform referencia;
     public float speed =0.5f;
     public AudioSource doorAudio;
 
@@ -22,7 +22,7 @@ public class Move : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {    
-         referencia = doorPosition.position;
+         referencia = doorPosition;
          luzInterior.SetActive(true);
          luzExterior.SetActive(true);
       
@@ -51,9 +51,9 @@ public class Move : MonoBehaviour
         }
         if(!click){
            
-             move(doorPosition.position, referencia);
+             move(doorPosition.position, referencia.position);
              
-           if(doorPosition.position == referencia){
+             if (Vector3.Distance(doorPosition.position, targetPosition.position) < 0.01f){
         
 
                 luzInterior.SetActive(true);
