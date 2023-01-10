@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoveRightC : MonoBehaviour
 {
@@ -13,18 +15,21 @@ public class MoveRightC : MonoBehaviour
     bool movingUP;
     bool movingRight;
     private Vector3 OriginalPos;
-    private Animator anim,needleAnim;
+    private Animator anim, needleAnim;
     public Transform RightC;
     public ParticleSystem craftingSmoke;
     public ParticleSystem craftingSpark;
-    public ParticleSystem escape;
     bool call = false;
     bool callback = false;
     public Canvas canvas;
+    public TextMeshProUGUI textMeshPro;
+    public RawImage rawImage;
     // Start is called before the first frame update
     void Start()
     {
-        needleAnim=needle.GetComponent<Animator>();
+        textMeshPro.enabled = false;
+        rawImage.enabled = false;
+        needleAnim = needle.GetComponent<Animator>();
         movingDown = false;
         movingLeft = false;
         movingUP = false;
@@ -32,7 +37,6 @@ public class MoveRightC : MonoBehaviour
         OriginalPos = transform.position;
         anim = LeftC.GetComponent<Animator>();
         canvas.enabled = false;
-        escape.Stop();
 
     }
 
@@ -54,17 +58,29 @@ public class MoveRightC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (call) { 
+        if (call)
+        {   // turn on the screen
             canvas.enabled = true;
-             needleAnim.SetBool("turn", true);
-            movmment(); 
-            }
 
-        if (callback) { 
-           canvas.enabled = false;
-           needleAnim.SetBool("turn", false);
-            back(); 
-            }
+            // enable the video video
+            textMeshPro.enabled = true;
+            rawImage.enabled = true;
+
+            needleAnim.SetBool("turn", true);
+            movmment();
+        }
+
+        if (callback)
+        {   // turn off the screen
+            canvas.enabled = false;
+
+            // disable the vibration video
+            textMeshPro.enabled = false;
+            rawImage.enabled = false;
+
+            needleAnim.SetBool("turn", false);
+            back();
+        }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -100,7 +116,6 @@ public class MoveRightC : MonoBehaviour
                 anim.SetBool("turn", true);
                 craftingSmoke.Play();
                 craftingSpark.Play();
-                escape.Play();
                 call = false;
             }
         }
@@ -121,7 +136,6 @@ public class MoveRightC : MonoBehaviour
             anim.SetBool("turn", false);
             craftingSmoke.Stop();
             craftingSpark.Stop();
-            escape.Stop();
             if (transform.position == target1.position)
             {
                 movingRight = false;

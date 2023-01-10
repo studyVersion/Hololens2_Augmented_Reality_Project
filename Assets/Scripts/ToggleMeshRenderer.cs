@@ -16,7 +16,6 @@ public class ToggleMeshRenderer : MonoBehaviour
     }
 
 
-
     public void shapeObject()
     {
         // doorAudio.Play();
