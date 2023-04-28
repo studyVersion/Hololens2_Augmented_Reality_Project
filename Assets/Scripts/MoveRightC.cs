@@ -21,7 +21,7 @@ public class MoveRightC : MonoBehaviour
     public ParticleSystem craftingSpark;
     bool call = false;
     bool callback = false;
-    public Canvas canvas;
+    // public Canvas canvas;
     public TextMeshProUGUI textMeshPro;
     public RawImage rawImage;
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class MoveRightC : MonoBehaviour
         movingRight = false;
         OriginalPos = transform.position;
         anim = LeftC.GetComponent<Animator>();
-        canvas.enabled = false;
+        // canvas.enabled = false;
 
     }
 
@@ -46,8 +46,10 @@ public class MoveRightC : MonoBehaviour
         if (!call)
         {
             call = true;
+            StartCoroutine(ResetCallAfterDelay(10f));
         }
     }
+    
     public void clickback()
     {
         if (!callback)
@@ -55,24 +57,31 @@ public class MoveRightC : MonoBehaviour
             callback = true;
         }
     }
+
+    private IEnumerator ResetCallAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        clickback();
+    }
     // Update is called once per frame
     void Update()
     {
         if (call)
         {   // turn on the screen
-            canvas.enabled = true;
+            // canvas.enabled = true;
 
             // enable the video video
             textMeshPro.enabled = true;
             rawImage.enabled = true;
 
             needleAnim.SetBool("turn", true);
+        
             movmment();
         }
 
         if (callback)
         {   // turn off the screen
-            canvas.enabled = false;
+            // canvas.enabled = false;
 
             // disable the vibration video
             textMeshPro.enabled = false;
@@ -96,6 +105,7 @@ public class MoveRightC : MonoBehaviour
             movingDown = true;
 
         }
+        
         if (movingDown)
         {
 
