@@ -7,27 +7,109 @@ public class ToggleMeshRenderer : MonoBehaviour
     bool shapedTwo = false;
     bool shapedThree = false;
     bool shapedFour = false;
-    public Renderer[] renderers ;
- 
+    GameObject childObject;
+    GameObject childObject2;
+    MeshRenderer[] meshRenderer;
+    bool gotChild = false;
+    void Start()
+    {
+
+        gotChild = false;
+        // Check if the parent object has at least one child
+        if (transform.childCount > 0)
+        {
+            // Get the first child object
+            childObject = transform.GetChild(0).gameObject;
+
+            if (childObject.transform.childCount > 0)
+            {
+                childObject2 = childObject.transform.GetChild(0).gameObject;
+                meshRenderer = childObject2.GetComponentsInChildren<MeshRenderer>();
+
+            }
+
+
+        }
+
+    }
+
+
+    void ResetRenderer()
+    {
+        if (childObject2 != null)
+        {
+            for (int i = 0; i < childObject2.transform.childCount; i++)
+            {
+                MeshRenderer renderer = childObject2.transform.GetChild(i).GetComponent<MeshRenderer>();
+                if (renderer != null)
+                    renderer.enabled = false;
+            }
+
+            if (childObject2.transform.childCount > 0)
+            {
+                MeshRenderer firstRenderer = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+                if (firstRenderer != null)
+                    firstRenderer.enabled = true;
+            }
+        }
+    }
+
     void Update()
     {
-        if (shapedOne)
+        // Check if the parent object has at least one child
+        if (transform.childCount > 0)
         {
-            // Enable the MeshRenderer of the second child object after 10 seconds
-            StartCoroutine(Delay1(10.0f));
-        }
-        else if(shapedTwo){
+            // Get the first child object
+            childObject = transform.GetChild(0).gameObject;
 
-            StartCoroutine(Delay2(10.0f));
-        }
-        else if(shapedThree){
-            
-            StartCoroutine(Delay3(10.0f));
-        }
-        else if (shapedFour){
+            if (childObject.transform.childCount > 0)
+            {
+                childObject2 = childObject.transform.GetChild(0).gameObject;
+                gotChild = true;
+                
+            }
+            else
+            {
 
-             StartCoroutine(Delay4(10.0f));
+                childObject2 = null;
+                gotChild = false;
+            }
+
         }
+        if (!gotChild)
+        {
+            ResetRenderer();
+        }
+        else
+        {
+            if (shapedOne)
+            {
+                
+                // Enable the MeshRenderer of the second child object after 10 seconds
+                StartCoroutine(Delay1(10.0f));
+                shapedOne = false;
+            }
+            else if (shapedTwo)
+            {
+
+                StartCoroutine(Delay2(10.0f));
+                shapedTwo = false;
+                
+            }
+            else if (shapedThree)
+            {
+
+                StartCoroutine(Delay3(10.0f));
+                shapedThree = false;
+            }
+            else if (shapedFour)
+            {
+
+                StartCoroutine(Delay4(10.0f));
+                shapedFour = false;
+            }
+        }
+
 
 
     }
@@ -41,10 +123,11 @@ public class ToggleMeshRenderer : MonoBehaviour
             shapedTwo = false;
             shapedThree = false;
             shapedFour = false;
-            
+
+
         }
     }
-     public void shapeObjectTwo()
+    public void shapeObjectTwo()
     {
         // doorAudio.Play();
         if (!shapedTwo)
@@ -55,7 +138,7 @@ public class ToggleMeshRenderer : MonoBehaviour
             shapedFour = false;
         }
     }
-     public void shapeObjectThree()
+    public void shapeObjectThree()
     {
         // doorAudio.Play();
         if (!shapedThree)
@@ -66,12 +149,12 @@ public class ToggleMeshRenderer : MonoBehaviour
             shapedFour = false;
         }
     }
-    
-     public void shapeObjectFour()
+
+    public void shapeObjectFour()
     {
         // doorAudio.Play();
         if (!shapedFour)
-        {   
+        {
             shapedOne = false;
             shapedTwo = false;
             shapedThree = false;
@@ -81,57 +164,73 @@ public class ToggleMeshRenderer : MonoBehaviour
     IEnumerator Delay1(float time)
     {
         yield return new WaitForSeconds(time);
+        if (childObject.transform.childCount > 0 && gotChild)
+        {
 
-        MeshRenderer renderer1 = transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
-        renderer1.enabled = false;
+            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            renderer1.enabled = false;
 
-        MeshRenderer renderer = transform.GetChild(1).GetComponent<MeshRenderer>();
-        renderer.enabled = true;
+            MeshRenderer renderer = childObject2.transform.GetChild(1).GetComponent<MeshRenderer>();
+            renderer.enabled = true;
+        }
     }
     IEnumerator Delay2(float time)
     {
         yield return new WaitForSeconds(time);
 
-        MeshRenderer renderer1 = transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
-        renderer1.enabled = false;
+        if (childObject.transform.childCount > 0)
+        {
+            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            renderer1.enabled = false;
 
-        MeshRenderer renderer = transform.GetChild(2).GetComponent<MeshRenderer>();
-        renderer.enabled = true;
+            MeshRenderer renderer = childObject2.transform.GetChild(2).GetComponent<MeshRenderer>();
+            renderer.enabled = true;
+        }
     }
     IEnumerator Delay3(float time)
     {
         yield return new WaitForSeconds(time);
+        if (childObject.transform.childCount > 0)
+        {
 
-        MeshRenderer renderer1 = transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
-        renderer1.enabled = false;
+            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            renderer1.enabled = false;
 
-        MeshRenderer renderer = transform.GetChild(3).GetComponent<MeshRenderer>();
-        renderer.enabled = true;
+            MeshRenderer renderer = childObject2.transform.GetChild(3).GetComponent<MeshRenderer>();
+            renderer.enabled = true;
+        }
     }
-      IEnumerator Delay4(float time)
+    IEnumerator Delay4(float time)
     {
         yield return new WaitForSeconds(time);
+        if (childObject.transform.childCount > 0)
+        {
 
-        MeshRenderer renderer1 = transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
-        renderer1.enabled = false;
+            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            renderer1.enabled = false;
 
-        MeshRenderer renderer = transform.GetChild(4).GetComponent<MeshRenderer>();
-        renderer.enabled = true;
+            MeshRenderer renderer = childObject2.transform.GetChild(4).GetComponent<MeshRenderer>();
+            renderer.enabled = true;
+        }
     }
 
     public int GetCurrentShapeIndex()
-    {   
-        
+    {
+
         int currentIndex = -1;
 
         // Loop through all MeshRenderers and find the index of the currently enabled one
-        for (int i = 0; i < renderers.Length; i++)
+        if (meshRenderer != null)
         {
-            if (renderers[i].enabled)
+            for (int i = 0; i < meshRenderer.Length; i++)
             {
-                currentIndex = i;
-                break;
+                if (meshRenderer[i].enabled)
+                {
+                    currentIndex = i;
+                    break;
+                }
             }
+
         }
 
         return currentIndex;
