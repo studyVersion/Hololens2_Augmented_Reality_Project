@@ -36,10 +36,18 @@ public class MoveRightC : MonoBehaviour
         movingRight = false;
         OriginalPos = transform.position;
         anim = LeftC.GetComponent<Animator>();
+
         // canvas.enabled = false;
 
     }
 
+
+    public void spinDisk()
+    {
+
+        RightC.Rotate(-45, 0, 0);
+
+    }
 
     public void click()
     {
@@ -49,7 +57,7 @@ public class MoveRightC : MonoBehaviour
             StartCoroutine(ResetCallAfterDelay(10f));
         }
     }
-    
+
     public void clickback()
     {
         if (!callback)
@@ -75,7 +83,7 @@ public class MoveRightC : MonoBehaviour
             rawImage.enabled = true;
 
             needleAnim.SetBool("turn", true);
-        
+
             movmment();
         }
 
@@ -93,7 +101,7 @@ public class MoveRightC : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            RightC.Rotate(0, -45, 0);
+            RightC.Rotate(-45, 0, 0);
         }
 
     }
@@ -105,7 +113,7 @@ public class MoveRightC : MonoBehaviour
             movingDown = true;
 
         }
-        
+
         if (movingDown)
         {
 

@@ -65,6 +65,7 @@ public class ToggleMeshRenderer : MonoBehaviour
             if (childObject.transform.childCount > 0)
             {
                 childObject2 = childObject.transform.GetChild(0).gameObject;
+                meshRenderer = childObject2.GetComponentsInChildren<MeshRenderer>();
                 gotChild = true;
                 
             }
@@ -167,7 +168,7 @@ public class ToggleMeshRenderer : MonoBehaviour
         if (childObject.transform.childCount > 0 && gotChild)
         {
 
-            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            MeshRenderer renderer1 = childObject2.transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
             renderer1.enabled = false;
 
             MeshRenderer renderer = childObject2.transform.GetChild(1).GetComponent<MeshRenderer>();
@@ -180,7 +181,7 @@ public class ToggleMeshRenderer : MonoBehaviour
 
         if (childObject.transform.childCount > 0)
         {
-            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            MeshRenderer renderer1 = childObject2.transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
             renderer1.enabled = false;
 
             MeshRenderer renderer = childObject2.transform.GetChild(2).GetComponent<MeshRenderer>();
@@ -193,7 +194,7 @@ public class ToggleMeshRenderer : MonoBehaviour
         if (childObject.transform.childCount > 0)
         {
 
-            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            MeshRenderer renderer1 = childObject2.transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
             renderer1.enabled = false;
 
             MeshRenderer renderer = childObject2.transform.GetChild(3).GetComponent<MeshRenderer>();
@@ -206,7 +207,7 @@ public class ToggleMeshRenderer : MonoBehaviour
         if (childObject.transform.childCount > 0)
         {
 
-            MeshRenderer renderer1 = childObject2.transform.GetChild(0).GetComponent<MeshRenderer>();
+            MeshRenderer renderer1 = childObject2.transform.GetChild(GetCurrentShapeIndex()).GetComponent<MeshRenderer>();
             renderer1.enabled = false;
 
             MeshRenderer renderer = childObject2.transform.GetChild(4).GetComponent<MeshRenderer>();
@@ -218,7 +219,7 @@ public class ToggleMeshRenderer : MonoBehaviour
     {
 
         int currentIndex = -1;
-
+        meshRenderer = childObject2.GetComponentsInChildren<MeshRenderer>();
         // Loop through all MeshRenderers and find the index of the currently enabled one
         if (meshRenderer != null)
         {
