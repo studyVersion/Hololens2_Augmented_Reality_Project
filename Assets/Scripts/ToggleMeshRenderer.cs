@@ -7,10 +7,12 @@ public class ToggleMeshRenderer : MonoBehaviour
     bool shapedTwo = false;
     bool shapedThree = false;
     bool shapedFour = false;
+    bool alarmButton = false;
     GameObject childObject;
     GameObject childObject2;
     MeshRenderer[] meshRenderer;
     bool gotChild = false;
+    private Coroutine coroutine;
     void Start()
     {
 
@@ -87,27 +89,33 @@ public class ToggleMeshRenderer : MonoBehaviour
             {
                 
                 // Enable the MeshRenderer of the second child object after 10 seconds
-                StartCoroutine(Delay1(10.0f));
+                coroutine = StartCoroutine(Delay1(10.0f));
                 shapedOne = false;
             }
             else if (shapedTwo)
             {
 
-                StartCoroutine(Delay2(10.0f));
+                coroutine = StartCoroutine(Delay2(10.0f));
                 shapedTwo = false;
                 
             }
             else if (shapedThree)
             {
 
-                StartCoroutine(Delay3(10.0f));
+                coroutine = StartCoroutine(Delay3(10.0f));
                 shapedThree = false;
             }
             else if (shapedFour)
             {
 
-                StartCoroutine(Delay4(10.0f));
+                coroutine = StartCoroutine(Delay4(10.0f));
                 shapedFour = false;
+            }
+            else if (alarmButton)
+            {
+                StopCoroutine(coroutine);
+                ResetRenderer();
+                alarmButton = false;
             }
         }
 
@@ -124,6 +132,7 @@ public class ToggleMeshRenderer : MonoBehaviour
             shapedTwo = false;
             shapedThree = false;
             shapedFour = false;
+            alarmButton = false;
 
 
         }
@@ -137,6 +146,8 @@ public class ToggleMeshRenderer : MonoBehaviour
             shapedTwo = true;
             shapedThree = false;
             shapedFour = false;
+            alarmButton = false;
+
         }
     }
     public void shapeObjectThree()
@@ -148,6 +159,7 @@ public class ToggleMeshRenderer : MonoBehaviour
             shapedTwo = false;
             shapedThree = true;
             shapedFour = false;
+            alarmButton = false;
         }
     }
 
@@ -160,8 +172,24 @@ public class ToggleMeshRenderer : MonoBehaviour
             shapedTwo = false;
             shapedThree = false;
             shapedFour = true;
+            alarmButton = false;
         }
     }
+
+    public void alarm()
+    {
+        // doorAudio.Play();
+        if (!alarmButton)
+        {
+            shapedOne = false;
+            shapedTwo = false;
+            shapedThree = false;
+            shapedFour = false;
+            alarmButton = true;
+        }
+    }
+
+
     IEnumerator Delay1(float time)
     {
         yield return new WaitForSeconds(time);
